@@ -2,7 +2,6 @@ const imageFileInput = document.querySelector("#imageFileInput");
 const canvas = document.querySelector("#meme");
 const topTextInput = document.querySelector("#topTextInput");
 const bottomTextInput = document.querySelector("#bottomTextInput");
-const SpongebobTextInput = document.querySelector("#SpongebobTextInput");
 
 let image;
 
@@ -20,7 +19,6 @@ imageFileInput.addEventListener("change", (e) => {
         image,
         topTextInput.value,
         bottomTextInput.value,
-        SpongebobTextInput.value // Pass the Spongebob Mock text
       );
     },
     { once: true }
@@ -28,18 +26,15 @@ imageFileInput.addEventListener("change", (e) => {
 });
 
 topTextInput.addEventListener("change", () => {
-  updateMemeCanvas(canvas, image, topTextInput.value, bottomTextInput.value, SpongebobTextInput.value);
+  updateMemeCanvas(canvas, image, topTextInput.value, bottomTextInput.value);
 });
 
 bottomTextInput.addEventListener("change", () => {
-  updateMemeCanvas(canvas, image, topTextInput.value, bottomTextInput.value, SpongebobTextInput.value);
+  updateMemeCanvas(canvas, image, topTextInput.value, bottomTextInput.value);
 });
 
-SpongebobTextInput.addEventListener("change", () => {
-  updateMemeCanvas(canvas, image, topTextInput.value, bottomTextInput.value, SpongebobTextInput.value);
-});
 
-function updateMemeCanvas(canvas, image, topText, bottomText, spongebobText) {
+function updateMemeCanvas(canvas, image, topText, bottomText) {
   const ctx = canvas.getContext("2d");
   const width = image.width;
   const height = image.height;
@@ -69,18 +64,4 @@ function updateMemeCanvas(canvas, image, topText, bottomText, spongebobText) {
   ctx.strokeText(bottomText, width / 2, height - yOffset);
   ctx.fillText(bottomText, width / 2, height - yOffset);
 
-  // Add Spongebob Mock text with randomized letter case
-  ctx.textBaseline = "middle";
-  ctx.font = `${fontSize}px sans-serif`;
-  const spongebobMockedText = randomizeLetterCase(spongebobText);
-  ctx.strokeText(spongebobMockedText, width / 2, height / 2);
-  ctx.fillText(spongebobMockedText, width / 2, height / 2);
-}
-
-function randomizeLetterCase(text) {
-  // Helper function to randomize letter case in a string
-  return text
-    .split("")
-    .map((char) => (Math.random() < 0.5 ? char.toUpperCase() : char.toLowerCase()))
-    .join("");
 }
